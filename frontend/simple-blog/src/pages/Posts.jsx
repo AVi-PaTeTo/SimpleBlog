@@ -2,7 +2,7 @@
 import filterIcon from "../assets/filter.png"
 import PostPill from "../components/PostPill";
 
-function Home(){
+function Posts(){
     return(
         <>
         <div className="search">
@@ -17,17 +17,9 @@ function Home(){
         <div className="post-wrapper">
             <PostPill/>
             <PostPill/>
-            <PostPill/>
-            <PostPill/>
-            <PostPill/>
-            <PostPill/>
-            <PostPill/>
-            <PostPill/>
-            <PostPill/>
-            <PostPill/>
         </div>
         </>
     )
 }
 
-export default Home
+export default Posts

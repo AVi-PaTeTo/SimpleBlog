@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 body {
-  font-family: "Andika", sans-serif;
+  font-family: "Nunito", sans-serif;
   background: #000220;
   display: flex;
   align-items: center;
@@ -140,7 +140,7 @@ button{
 }
 
 .post-pill{
-  background-color: #ffffffbd;
+  background-color: #e2deff;
   padding: 20px;
   border-radius: 10px;
   gap: 20px;
@@ -177,6 +177,7 @@ button{
   border: none;
   padding: 15px;
   font-size: 1.2rem;
+  background-color: #e2deff;
 }
 
 .search> input:focus{
@@ -193,7 +194,7 @@ button{
   border-radius: 50px;
   font-family: Boldonse;
   letter-spacing: 0.4rem;
-  /* color: white; */
+  background-color: #e2deff;
   font-weight: 400;
   font-size: 1rem;
   display: flex;
@@ -203,4 +204,53 @@ button{
 
 button > img{
   width: 25px;
+}
+
+.create{
+  /* background-color: #e2deff; */
+  /* display: flex; */
+  height: 100vh;
+}
+
+.create > form > #title{
+  outline: 2px solid #836FFF;
+  border:none;
+  border-radius: 50px;
+  padding: 0.8rem;
+  background-color: rgba(255, 255, 255, 0);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.create > form > #content{
+  outline: 2px solid #836FFF;
+  resize: none;
+  border:none;
+  border-radius: 20px;
+  padding: 0.8rem;
+  background-color: rgba(255, 255, 255, 0);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+#content::-webkit-scrollbar{
+  display: none;
+}
+
+.button-container{
+  display: flex;
+  gap: 10px;
+  justify-content: right;
+}
+
+.button-container>button{
+  font-family: boldonse;
+  font-size: .8rem;
+  letter-spacing: 0.1rem;
+  border: none;
+  border-radius: 20px;
+  padding: .6rem 1rem;
+  background-color: #836FFF;
 }

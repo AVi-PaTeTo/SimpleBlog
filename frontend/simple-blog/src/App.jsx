@@ -1,15 +1,13 @@
 import { useState } from 'react'
 import './App.css'
 import Login from './pages/login'
-import Home from './pages/Home'
-import PrivatePosts from './pages/Private'
 import CreatePost from './pages/PostCreate'
 import Header from './components/Header'
 import {Link, Route, Routes, useNavigate } from 'react-router-dom'
+import Posts from './pages/Posts'
 
 
 function App() {
-  const [count, setCount] = useState(0)
   const navigate = useNavigate();
 
   function handleClick(value){
@@ -27,9 +25,9 @@ function App() {
         </div>
         <div className='content-wrapper'>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Posts />} />
             <Route path="/create" element={<CreatePost />} />
-            <Route path="/private-posts" element={<PrivatePosts />} />
+            <Route path="/private-posts" element={<Posts />} />
           </Routes>
         </div>
         
