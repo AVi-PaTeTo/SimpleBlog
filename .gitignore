@@ -1,0 +1,23 @@
+# Python/Django
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+.env
+*.log
+venv/
+staticfiles/
+media/
+
+# Node.js/React
+frontend/simple-blog/node_modules/
+frontend/simple-blog/build/
+frontend/simple-blog/dist/
+frontend/simple-blog/.env
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

@@ -1,0 +1,9 @@
+django
+djangorestframework
+markdown       # Markdown support for the browsable API.
+django-filter 
+drf-spectacular
+djangorestframework-simplejwt
+django-filters
+django-silk
+django-cors-headers
