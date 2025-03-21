@@ -22,12 +22,14 @@ function App() {
           <button onClick={() => navigate('/create')}>Create</button>
           <button onClick={() => navigate('/')}>Browse</button>
           <button onClick={() => navigate('/private-posts')}>Private</button>
+          <button onClick={() => navigate('/login')}>Log In</button>
         </div>
         <div className='content-wrapper'>
           <Routes>
             <Route path="/" element={<Posts />} />
             <Route path="/create" element={<CreatePost />} />
             <Route path="/private-posts" element={<Posts />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
         
