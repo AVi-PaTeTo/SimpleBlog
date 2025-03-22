@@ -3,7 +3,7 @@ import commentIcon from "../assets/comment-dots.png";
 
 export default function PostPill(props){
     return(
-        <div className="post-pill">
+        <div onClick={props.postClick} className="post-pill">
             <h1>{props.title}</h1>
             <p>{props.content}</p>
             <div className="stats">

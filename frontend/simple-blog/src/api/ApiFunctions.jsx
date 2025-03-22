@@ -8,3 +8,13 @@ export const getPosts = async() => {
 export const createPost = async(postData) => {
     const response = await API.post("/posts/", postData)
 }
+
+export const getPostById = async(postId) => {
+    const response = await API.get(`/posts/${postId}`)
+    return response.data
+}
+
+export const getUserPrivatePosts = async() => {
+    const response = await API.get('/posts/private_posts');
+    return response.data
+} 
