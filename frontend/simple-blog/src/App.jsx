@@ -6,13 +6,14 @@ import Header from './components/Header'
 import {Link, Route, Routes, useNavigate, useParams } from 'react-router-dom'
 import Posts from './pages/Posts'
 import PostDetail from './pages/PostDetail'
-
+import { UserProvider } from './context/userContext.jsx'
 
 function App() {
   const navigate = useNavigate();
-
+  
   return (
     <>
+      <UserProvider>      
       <Header />
       <div className='tray'>
         <div className='actions'>
@@ -32,7 +33,7 @@ function App() {
         </div>
         
       </div>
-
+      </UserProvider>
     </>
   )
 }

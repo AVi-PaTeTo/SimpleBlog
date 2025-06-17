@@ -1,6 +1,11 @@
 *{
   box-sizing: border-box;
 }
+
+button:hover{
+    cursor: pointer;
+}
+
 body {
   font-family: "Nunito", sans-serif;
   background: #000220;
@@ -70,7 +75,7 @@ button{
 }
 
 .title-container > h1.second{
-  color: #836FFF;
+  color:   #836FFF;
 }
 
 .tray {
@@ -128,7 +133,7 @@ button{
   letter-spacing: 0.2rem;
   color: black;
   background-color: #836FFF;
-  /* color: white; */
+
   font-weight: 400;
   font-size: .8rem;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -140,6 +145,8 @@ button{
 }
 
 .post-pill{
+  max-height: 12rem;
+  margin: 0 0.2rem;
   background-color: #e2deff;
   padding: 20px;
   border-radius: 10px;
@@ -148,22 +155,70 @@ button{
   cursor: pointer;
 }
 
-.post-pill > .stats{
+.post-details> .content{
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+.post-pill > .post-stats{
   margin-top: 10px;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-.stats > #like{
+.post-pill:hover{
+  background-color: #cfc9ff;
+}
+.post-stats > #like{
   width: 22px;
 }
 
-.stats > #comment{
+.post-stats > #comment{
   margin-left: 10px;
   width: 19px;
 }
 
+
+.post-header{
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1.3rem;
+}
+
+.post-header h2{
+  font-size: 2rem;
+}
+
+.post-customize{
+  display: flex;
+  gap: 0.5rem;
+}
+
+#edit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 2rem; */
+  background-color: #2bff00;
+  border-radius: 5rem;
+  align-items: center;
+}
+
+#delete{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 2rem; */
+  background-color: #eb3131;
+  border-radius: 5rem;
+  align-items: center;
+}
 
 .search{
   /* background-color: #000220; */
@@ -261,13 +316,61 @@ button > img{
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow: auto;
+}
+
+.detail::-webkit-scrollbar {
+  display: none;
+}
+
+.detail .post{
+  margin: 1rem;
+  gap: 1rem;
 }
 
 .detail> h2{
   font-size: 2rem;
-  margin: 10px;
 }
 
-.detail> p{
-  margin: 10px;
+.comment-section > .load-comment{
+  min-width: 5rem;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  margin-left: 45%;
+  background-color: #836FFF;
+  border-radius: 1rem;
+}
+
+.comment-box form{
+  display: flex;
+  gap: 1rem;
+  margin: 0.5rem 1rem;
+}
+
+.comment-box input{
+  padding: 0.5rem;
+  border-radius: 2rem;
+  border: solid white;
+} 
+
+.comment-box button{
+  min-width: 5rem;
+  padding: 0.5rem;
+  margin-left: auto;
+  background-color: #836FFF;
+  border-radius: 1rem;
+}
+
+.comment-list{
+  display: flex;
+  flex-direction: column;
+  margin: 0 1.5rem;
+}
+
+.comment-list .comment{
+  margin-bottom: 1rem;
+}
+
+.comment-content{
+  margin-left: 2rem;
 }

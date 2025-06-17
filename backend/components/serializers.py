@@ -13,7 +13,7 @@ class CommentSerializer(serializers.ModelSerializer):
     post = serializers.PrimaryKeyRelatedField(queryset=Post.objects.all(), write_only=True)
     class Meta:
         model = Comment
-        fields = ['post', 'post_title', 'username', 'content',  'created_at']
+        fields = ['post', 'post_title',  'username', 'content',  'created_at']
 
 # class PaginatedCommentSerializer(serializers.Serializer):
 #     comments = CommentSerializer(many=True)
@@ -26,10 +26,12 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source="author.username")
+    user_id = serializers.ReadOnlyField(source="author.id")
     comments = serializers.SerializerMethodField()
+    comment_count = serializers.SerializerMethodField()
     class Meta:
         model = Post
-        fields = ['id', "username", 'title', 'content', 'is_public', 'created_at', 'last_modified', 'comments']
+        fields = ['id', 'user_id', "username", 'title', 'content', 'is_public', 'created_at', 'last_modified', 'comments', 'comment_count']
 
     def get_comments(self, obj):
         request = self.context.get("request")  # Get request object
@@ -40,8 +42,11 @@ class PostSerializer(serializers.ModelSerializer):
         comments = obj.post_comments.all()
 
         # Paginate manually
-        paginator = Paginator(comments, 4)  # Show 5 comments per page
+        paginator = Paginator(comments, 5)  # Show 5 comments per page
         page = request.query_params.get("comment_page", 1)  # Get page number from request
         paginated_comments = paginator.get_page(page)
 
         return CommentSerializer(paginated_comments, many=True).data
+    
+    def get_comment_count(self, obj):
+        return len(obj.post_comments.all())

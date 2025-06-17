@@ -65,7 +65,7 @@ class PrivatePostDetailView(generics.RetrieveUpdateDestroyAPIView):
 class CommentAPIView(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
-    pagination_class = [CommentPagination]
+    # pagination_class = [CommentPagination]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)

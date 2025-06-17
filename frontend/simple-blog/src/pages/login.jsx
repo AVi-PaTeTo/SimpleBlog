@@ -2,6 +2,9 @@ import { useState } from "react";
 import axios from "axios";
 import login_side from "../assets/login_side.jpg"
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/userContext";
+import { jwtDecode } from "jwt-decode";
+
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -9,6 +12,7 @@ const Login = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const {setCurrentUser} = useUser();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,6 +31,14 @@ const Login = () => {
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
 
+
+      //Decode the token to get user info
+      const decodedToken = jwtDecode(access)
+      const user = {
+        id: decodedToken.user_id
+      }
+
+      setCurrentUser(user)
       console.log("Login successful!");
       navigate("/")
     } catch (err) {

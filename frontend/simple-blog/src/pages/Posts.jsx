@@ -27,6 +27,7 @@ function Posts(props){
                                                     key = {postItem.id}
                                                     title = {postItem.title}
                                                     content = {postItem.content}
+                                                    comment_count={postItem.comment_count}
                                                 />))
     return(
         <>

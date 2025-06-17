@@ -3,13 +3,15 @@ import commentIcon from "../assets/comment-dots.png";
 
 export default function PostPill(props){
     return(
-        <div onClick={props.postClick} className="post-pill">
+        <div className="post-pill">
+        <div onClick={props.postClick} className="post-details">
             <h1>{props.title}</h1>
-            <p>{props.content}</p>
-            <div className="stats">
-                <img id="like" src={likeIcon} alt="" />20
-                <img id="comment" src={commentIcon} alt="" />6
-            </div>
+            <p className="content">{props.content}</p>
+        </div>
+        <div className="post-stats">
+                {/* <img id="like" src={likeIcon} alt="" />0 */}
+                <img id="comment" src={commentIcon} alt="" />{props.comment_count}
+        </div>
         </div>
     )
 }
