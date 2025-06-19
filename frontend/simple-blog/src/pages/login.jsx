@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import login_side from "../assets/login_side.jpg"
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 import { jwtDecode } from "jwt-decode";
+
 
 
 const Login = () => {
@@ -38,11 +39,11 @@ const Login = () => {
         id: decodedToken.user_id
       }
 
-      setCurrentUser(user)
-      console.log("Login successful!");
-      navigate("/")
+      setCurrentUser(user);
+      console.log('Login successful!');
+      navigate('/');
     } catch (err) {
-      setError(err.response?.data?.detail || "Invalid credentials. Try again.");
+      setError(err.response?.data?.detail || 'Invalid credentials. Try again.');
     } finally {
       setLoading(false);
     }

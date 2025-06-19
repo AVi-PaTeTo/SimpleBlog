@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { createPost } from "../api/ApiFunctions"
+import DeletePopUp from "../components/DeletePopUp"
 
 export default function CreatePost(){
     const [post, setPost] = useState({  
@@ -13,11 +14,12 @@ export default function CreatePost(){
 
     const handleSave = async (e) => {
             const isPublic = e.target.value === "true";
-            const updatedPost = { ...post, is_public: isPublic }; // Update state before sending
+            const updatedPost = { ...post, is_public: isPublic };
             const response = await createPost(updatedPost);
     };
 
     return(
+        <>
         <div className="create">
             <form action="">
 
@@ -31,5 +33,8 @@ export default function CreatePost(){
                 </div>
             </form>
         </div>
+
+        </>
+        
     )
 }

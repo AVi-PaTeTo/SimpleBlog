@@ -1,7 +1,7 @@
 
 import filterIcon from "../assets/filter.png"
 import PostPill from "../components/PostPill";
-import { getPosts, getUserPrivatePosts } from "../api/ApiFunctions";
+import { getPosts, getUserPosts } from "../api/ApiFunctions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +12,7 @@ function Posts(props){
     useEffect(()=>{
         const fetchPost = async() =>
         {
-            const data = await (props.public? getPosts(): getUserPrivatePosts())
+            const data = await (props.public? getPosts(): getUserPosts())
             setPostData(data)
         }
         fetchPost();
@@ -22,12 +22,14 @@ function Posts(props){
         navigate(`/post-detail/${id}`)
     }
 
+    console.log(postData)
     const postObjects = postData.map(postItem => (<PostPill
                                                     postClick={() => handlePostClick(postItem.id)}
                                                     key = {postItem.id}
                                                     title = {postItem.title}
                                                     content = {postItem.content}
                                                     comment_count={postItem.comment_count}
+                                                    public = {postItem.is_public}
                                                 />))
     return(
         <>

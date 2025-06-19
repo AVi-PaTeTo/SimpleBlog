@@ -220,6 +220,45 @@ button{
   align-items: center;
 }
 
+.popup-overlay{
+  background-color: #9696968e;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(231, 231, 231);
+  padding:2rem;
+  border-radius: 20px;
+}
+
+.popup button{
+  margin: 1rem 0.5rem 0;
+  padding: 0.4rem 1.5rem;
+  font-size: .9rem;
+  font-weight: 500;
+  letter-spacing: .1rem;
+  font-family: "Boldonse", sans-serif;
+}
+
+.confirm-delete{
+  background-color: #eb0800;
+}
+
+.cancel-delete{
+  background-color: #cfc9c9;
+}
+
 .search{
   /* background-color: #000220; */
   gap: 10px;

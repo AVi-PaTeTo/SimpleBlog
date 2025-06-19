@@ -5,7 +5,7 @@ export default function PostPill(props){
     return(
         <div className="post-pill">
         <div onClick={props.postClick} className="post-details">
-            <h1>{props.title}</h1>
+            <h1>{props.title} {props.public? null:"(Private)"}</h1>
             <p className="content">{props.content}</p>
         </div>
         <div className="post-stats">

@@ -2,23 +2,28 @@
 
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { getPostById, createComment, loadMoreComment } from "../api/ApiFunctions"
 import Comment from '../components/Comment';
 import { useUser } from '../context/userContext';
 import deleteIcon from "../assets/trash.png";
 import editIcon from "../assets/edit.png";
+import { deletePost } from '../api/ApiFunctions';
+import DeletePopUp from '../components/DeletePopUp';
 
 export default function PostDetail() {
-  const { id } = useParams(); // Extract the 'id' parameter
+  const { id } = useParams();
   const [post, setPost] = useState({});
   const [commentText, setCommentText] = useState("")
   const [comments, setComments] = useState([])
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const { currentUser } = useUser();
+  const [popupVisible, setPopupVisible] = useState(false)
 
-  // const isAuthor = currentUser.id === post.user_id
+  const isAuthor = currentUser.id === post.user_id
   
   useEffect(() => {
     const fetchSinglePost = async () => {
@@ -47,6 +52,30 @@ export default function PostDetail() {
               const response = await createComment(comment);
       };
   
+  const handleDeleteButton = () =>{
+    setPopupVisible(true)
+    console.log(id)
+  } 
+
+  const handlePopupButton = async(e) =>{
+    if (e.target.value === 'cancel') {
+      setPopupVisible(false)
+    } else if (e.target.value === 'confirm'){
+      try {
+        const response = await deletePost(id);
+        if (response.status === 200 || response.status === 204) {
+          setPopupVisible(false);
+          navigate('/');
+        } else {
+          throw new Error("Failed to delete post");
+        }
+      } catch (err) {
+        setError(err.message);
+        setPopupVisible(false)
+      }
+    }
+  };
+
   const loadMore = async(event) => {
     event.preventDefault();
     const pg = page + 1
@@ -55,27 +84,32 @@ export default function PostDetail() {
     setComments(prevComments => ([...prevComments, ...moreComments]))
   }
 
+  
   const commentObjects = comments.map(commentItem => (<Comment
                                                         key = {commentItem.id}
                                                         username = {commentItem.username}
                                                         content = {commentItem.content}
                                                     />))
   
-
   const accessToken = localStorage.getItem("access_token")
   console.log(accessToken)
+  console.log(currentUser)
+
   return (
     <>
+      {popupVisible && (<DeletePopUp 
+        onClick={handlePopupButton}  
+      />)}
       <div className='detail'>
           <div className='post'>
             {post && (
               <>
               <div className='post-header'>
                 <h2>{post.title}</h2>
-                {/* {isAuthor &&(<div className='post-customize'>
+                {isAuthor &&(<div className='post-customize'>
                   <button id='edit'><img  src={editIcon} alt="edit icon" /></button>
-                  <button id='delete'><img  src={deleteIcon} alt="delete icon" /></button>
-                </div>)} */}
+                  <button onClick={handleDeleteButton} id='delete'><img  src={deleteIcon} alt="delete icon" /></button>
+                </div>)}
               </div>
               <p>{post.content}</p>
               </>

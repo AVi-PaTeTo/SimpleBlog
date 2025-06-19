@@ -49,7 +49,7 @@ class PostAPIView(viewsets.ModelViewSet):
     def private_posts(self, request):
         """List all private posts of the authenticated user."""
         user = request.user
-        private_posts = Post.objects.filter(author=user, is_public=False)
+        private_posts = Post.objects.filter(author=user)
         serializer = self.get_serializer(private_posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -60,7 +60,7 @@ class PrivatePostDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Post.objects.filter(author=self.request.user, is_public=False)
+        return Post.objects.filter(author=self.request.user)
     
 class CommentAPIView(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
