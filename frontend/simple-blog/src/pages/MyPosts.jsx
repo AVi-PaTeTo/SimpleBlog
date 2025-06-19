@@ -1,22 +1,28 @@
 
 import filterIcon from "../assets/filter.png"
 import PostPill from "../components/PostPill";
-import { getPosts} from "../api/ApiFunctions";
+import { getUserPosts } from "../api/ApiFunctions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Posts(){
+function MyPosts(props){
     const [postData, setPostData] = useState([]);
     const navigate = useNavigate();
-
+   
     useEffect(()=>{
-        const fetchPost = async() =>
-        {
-            const data = await getPosts()
-            setPostData(data)
+        const accessToken = localStorage.getItem("access_token")
+        if (accessToken != null){
+            const fetchPost = async() =>
+            {
+                const data = await getUserPosts();
+                setPostData(data)
+            }
+            fetchPost();
+        } else {
+            navigate('/login');
         }
-        fetchPost();
-    }, [])
+        
+    }, [props.public])
 
     function handlePostClick(id){
         navigate(`/post-detail/${id}`)
@@ -30,6 +36,7 @@ function Posts(){
                                                     comment_count={postItem.comment_count}
                                                     public = {postItem.is_public}
                                                 />))
+
     return(
         <>
         <div className="search">
@@ -42,10 +49,12 @@ function Posts(){
             </div>
         </div>
         <div className="post-wrapper">
-            {postObjects}
+            {postObjects.length!=0? postObjects:
+                <div className="no-posts"><h2>You don't have any posts yet.</h2></div>
+            }
         </div>
         </>
     )
 }
 
-export default Posts
+export default MyPosts

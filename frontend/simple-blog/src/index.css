@@ -173,6 +173,7 @@ button{
 .post-pill:hover{
   background-color: #cfc9ff;
 }
+
 .post-stats > #like{
   width: 22px;
 }
@@ -182,6 +183,12 @@ button{
   width: 19px;
 }
 
+.no-posts{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
 
 .post-header{
   align-items: center;

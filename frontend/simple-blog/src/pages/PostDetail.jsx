@@ -54,7 +54,6 @@ export default function PostDetail() {
   
   const handleDeleteButton = () =>{
     setPopupVisible(true)
-    console.log(id)
   } 
 
   const handlePopupButton = async(e) =>{
@@ -93,8 +92,6 @@ export default function PostDetail() {
   
   const accessToken = localStorage.getItem("access_token")
   console.log(accessToken)
-  console.log(currentUser)
-
   return (
     <>
       {popupVisible && (<DeletePopUp 
