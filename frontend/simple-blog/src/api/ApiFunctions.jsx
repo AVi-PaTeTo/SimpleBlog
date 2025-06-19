@@ -1,7 +1,7 @@
 import API from "./axios";
 
-export const getPosts = async() => {
-    const response = await API.get('/posts/');
+export const getPosts = async(filterData) => {
+    const response = await API.get(`/posts/${filterData}`);
     return response.data
 }
 
@@ -19,8 +19,8 @@ export const getPostById = async(postId) => {
     return response.data
 }
 
-export const getUserPosts = async() => {
-    const response = await API.get('/posts/private_posts');
+export const getUserPosts = async(filterData) => {
+    const response = await API.get(`/posts/user_posts/${filterData}`);
     return response.data
 } 
 

@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 function MyPosts(props){
     const [postData, setPostData] = useState([]);
+    const [filterData, setFilterData] = useState("");
+    const [searchText, setSearchText] = useState("")
     const navigate = useNavigate();
    
     useEffect(()=>{
@@ -14,7 +16,7 @@ function MyPosts(props){
         if (accessToken != null){
             const fetchPost = async() =>
             {
-                const data = await getUserPosts();
+                const data = await getUserPosts(filterData);
                 setPostData(data)
             }
             fetchPost();
@@ -22,10 +24,18 @@ function MyPosts(props){
             navigate('/login');
         }
         
-    }, [props.public])
+    }, [filterData])
 
     function handlePostClick(id){
         navigate(`/post-detail/${id}`)
+    }
+
+    const handleSearchEnter = () => {
+        setFilterData(prevFilterData => ("?search="+searchText))
+    }
+
+    const handleChange = (e) => {
+        setSearchText(e.target.value)
     }
 
     const postObjects = postData.map(postItem => (<PostPill
@@ -37,16 +47,36 @@ function MyPosts(props){
                                                     public = {postItem.is_public}
                                                 />))
 
+
     return(
         <>
         <div className="search">
-            <input name="search-bar" type="text" />
+            <input onKeyDown={(e) => {if(e.key === "Enter"){handleSearchEnter()}}} 
+                    onChange={handleChange} name="search-bar" type="text" />
+
             <div className="filter-dropdown">
                 <button>
                     Filters
                     <img src={filterIcon} alt="" />
                 </button>
+                <div className="sort-modal">
+                    <div>
+                        <input type="radio" id="sort-date" name="sortOption" value="date"/>
+                        <label htmlFor="sort-date">Date</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="sort-popularity" name="sortOption" value="popularity"/>
+                        <label htmlFor="sort-popilarity">Popularity</label>
+                    </div>
+                    <div className="sort-direction">
+                        <button id="ascending">Aesc</button>
+                        <button id="descending">Desc</button>
+                    </div>
+                    <button>Apply</button>
+                </div>
             </div>
+            
         </div>
         <div className="post-wrapper">
             {postObjects.length!=0? postObjects:

@@ -90,8 +90,9 @@ export default function PostDetail() {
                                                         content = {commentItem.content}
                                                     />))
   
-  const accessToken = localStorage.getItem("access_token")
-  console.log(accessToken)
+    console.log(comments.length)
+    console.log(post.comment_count)
+    console.log(post)
   return (
     <>
       {popupVisible && (<DeletePopUp 

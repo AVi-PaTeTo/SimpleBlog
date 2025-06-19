@@ -3,27 +3,33 @@ from rest_framework import viewsets, permissions, generics, exceptions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
+from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from .models import Post,Comment
 from .serializers import PostSerializer,CommentSerializer
 
 from .pagination import CommentPagination
-# Create your views here.
+
 
 class PostAPIView(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['title']
+    ordering_fields = ['created_at', 'comment_count']
 
     def get_queryset(self):
-        return Post.objects.select_related("author").prefetch_related("post_comments__author").filter(is_public=True)
+        return Post.objects.select_related("author").prefetch_related("post_comments__author").filter(is_public=True).annotate(comment_count=Count('post_comments'))
     
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
         
     def get_object(self):
         try:
-            post = Post.objects.get(pk=self.kwargs['pk']) # Get the post directly
+            post = Post.objects.annotate(comment_count=Count('post_comments')).get(pk=self.kwargs['pk'])
         except Post.DoesNotExist:
             raise exceptions.NotFound("Post not found")
 
@@ -46,21 +52,22 @@ class PostAPIView(viewsets.ModelViewSet):
         return super().partial_update(request, *args, **kwargs)
     
     @action(detail=False, methods=["get"])
-    def private_posts(self, request):
+    def user_posts(self, request):
         """List all private posts of the authenticated user."""
         user = request.user
-        private_posts = Post.objects.filter(author=user)
-        serializer = self.get_serializer(private_posts, many=True)
+        queryset = Post.objects.select_related("author").prefetch_related("post_comments__author").filter(author=user).annotate(comment_count=Count('post_comments'))
+        queryset = self.filter_queryset(queryset)
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class PrivatePostDetailView(generics.RetrieveUpdateDestroyAPIView):
-    """Retrieve, update, or delete a private post owned by the authenticated user."""
-    serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
+# class UserPostDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     """Retrieve, update, or delete a private post owned by the authenticated user."""
+#     serializer_class = PostSerializer
+#     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        return Post.objects.filter(author=self.request.user)
+#     def get_queryset(self):
+#         return Post.objects.select_related("author").prefetch_related("post_comments__author").filter(author=self.request.author).annotate(comment_count=Count('post_comments'))
     
 class CommentAPIView(viewsets.ModelViewSet):
     serializer_class = CommentSerializer

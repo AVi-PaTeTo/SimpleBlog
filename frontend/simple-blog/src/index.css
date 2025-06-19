@@ -289,6 +289,7 @@ button{
 .filter-dropdown{
   width: 20%;
   display: flex;
+  /* flex-direction: column; */
 }
 
 .filter-dropdown >button{
@@ -302,6 +303,32 @@ button{
   display: flex;
   align-items: center;
   justify-content:space-evenly;
+}
+
+.sort-modal{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  background-color: #e2deff;
+  height: 10rem;
+  width: 13rem;
+  padding: 1rem;
+  top: 100px;
+  right: 40px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 20px;
+}
+
+.sort-direction{
+  display: flex;
+  gap: 5px;
+}
+
+.sort-direction button{
+  padding: 8px 0;
+  gap: 2px;
+  width: 50%
 }
 
 button > img{

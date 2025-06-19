@@ -28,7 +28,8 @@ class PostSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source="author.username")
     user_id = serializers.ReadOnlyField(source="author.id")
     comments = serializers.SerializerMethodField()
-    comment_count = serializers.SerializerMethodField()
+    comment_count = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Post
         fields = ['id', 'user_id', "username", 'title', 'content', 'is_public', 'created_at', 'last_modified', 'comments', 'comment_count']
@@ -47,6 +48,3 @@ class PostSerializer(serializers.ModelSerializer):
         paginated_comments = paginator.get_page(page)
 
         return CommentSerializer(paginated_comments, many=True).data
-    
-    def get_comment_count(self, obj):
-        return len(obj.post_comments.all())

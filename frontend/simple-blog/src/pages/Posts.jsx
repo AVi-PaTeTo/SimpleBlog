@@ -7,21 +7,31 @@ import { useNavigate } from "react-router-dom";
 
 function Posts(){
     const [postData, setPostData] = useState([]);
+    const [filterData, setFilterData] = useState("")
+    const [searchText, setSearchText] = useState("")
     const navigate = useNavigate();
 
     useEffect(()=>{
         const fetchPost = async() =>
         {
-            const data = await getPosts()
+            const data = await getPosts(filterData)
             setPostData(data)
         }
         fetchPost();
-    }, [])
+    }, [filterData])
 
     function handlePostClick(id){
         navigate(`/post-detail/${id}`)
     }
 
+    const handleSearchEnter = () => {
+        setFilterData(prevFilterData => ("?search="+searchText))
+    }
+
+    const handleChange = (e) => {
+        setSearchText(e.target.value)
+    }
+    
     const postObjects = postData.map(postItem => (<PostPill
                                                     postClick={() => handlePostClick(postItem.id)}
                                                     key = {postItem.id}
@@ -33,7 +43,9 @@ function Posts(){
     return(
         <>
         <div className="search">
-            <input name="search-bar" type="text" />
+            <input onKeyDown={(e) => {if(e.key === "Enter"){handleSearchEnter()}}} 
+                    onChange={handleChange} name="search-bar" type="text" />
+
             <div className="filter-dropdown">
                 <button>
                     Filters

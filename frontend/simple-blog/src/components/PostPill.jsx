@@ -9,7 +9,6 @@ export default function PostPill(props){
             <p className="content">{props.content}</p>
         </div>
         <div className="post-stats">
-                {/* <img id="like" src={likeIcon} alt="" />0 */}
                 <img id="comment" src={commentIcon} alt="" />{props.comment_count}
         </div>
         </div>
