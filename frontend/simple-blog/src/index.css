@@ -311,7 +311,7 @@ button{
   gap: 5px;
   position: absolute;
   background-color: #e2deff;
-  height: 10rem;
+  /* height: 10rem; */
   width: 13rem;
   padding: 1rem;
   top: 100px;
@@ -320,15 +320,35 @@ button{
   border-radius: 20px;
 }
 
-.sort-direction{
+.sort-radio{
+  display: flex;
+  gap: 10px;
+}
+
+.sort-order{
   display: flex;
   gap: 5px;
 }
 
-.sort-direction button{
-  padding: 8px 0;
+.sort-order button{
+  padding: 5px 0;
   gap: 2px;
   width: 50%
+}
+
+.sort-order-img{
+  pointer-events: none;
+  height: 80%;
+}
+
+.apply{
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 10px;
+  background-color: #836FFF;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 1px;
 }
 
 button > img{

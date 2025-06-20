@@ -4,11 +4,11 @@ import PostPill from "../components/PostPill";
 import { getUserPosts } from "../api/ApiFunctions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SearchAndSort from "../components/SearchSort";
 
 function MyPosts(props){
     const [postData, setPostData] = useState([]);
     const [filterData, setFilterData] = useState("");
-    const [searchText, setSearchText] = useState("")
     const navigate = useNavigate();
    
     useEffect(()=>{
@@ -28,15 +28,7 @@ function MyPosts(props){
 
     function handlePostClick(id){
         navigate(`/post-detail/${id}`)
-    }
-
-    const handleSearchEnter = () => {
-        setFilterData(prevFilterData => ("?search="+searchText))
-    }
-
-    const handleChange = (e) => {
-        setSearchText(e.target.value)
-    }
+    };
 
     const postObjects = postData.map(postItem => (<PostPill
                                                     postClick={() => handlePostClick(postItem.id)}
@@ -47,37 +39,9 @@ function MyPosts(props){
                                                     public = {postItem.is_public}
                                                 />))
 
-
     return(
         <>
-        <div className="search">
-            <input onKeyDown={(e) => {if(e.key === "Enter"){handleSearchEnter()}}} 
-                    onChange={handleChange} name="search-bar" type="text" />
-
-            <div className="filter-dropdown">
-                <button>
-                    Filters
-                    <img src={filterIcon} alt="" />
-                </button>
-                <div className="sort-modal">
-                    <div>
-                        <input type="radio" id="sort-date" name="sortOption" value="date"/>
-                        <label htmlFor="sort-date">Date</label>
-                    </div>
-
-                    <div>
-                        <input type="radio" id="sort-popularity" name="sortOption" value="popularity"/>
-                        <label htmlFor="sort-popilarity">Popularity</label>
-                    </div>
-                    <div className="sort-direction">
-                        <button id="ascending">Aesc</button>
-                        <button id="descending">Desc</button>
-                    </div>
-                    <button>Apply</button>
-                </div>
-            </div>
-            
-        </div>
+        <SearchAndSort onFilterChange={setFilterData} />
         <div className="post-wrapper">
             {postObjects.length!=0? postObjects:
                 <div className="no-posts"><h2>You don't have any posts yet.</h2></div>

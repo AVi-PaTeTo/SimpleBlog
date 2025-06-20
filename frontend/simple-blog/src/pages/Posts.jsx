@@ -4,11 +4,11 @@ import PostPill from "../components/PostPill";
 import { getPosts} from "../api/ApiFunctions";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SearchAndSort from "../components/SearchSort";
 
 function Posts(){
     const [postData, setPostData] = useState([]);
     const [filterData, setFilterData] = useState("")
-    const [searchText, setSearchText] = useState("")
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -19,19 +19,11 @@ function Posts(){
         }
         fetchPost();
     }, [filterData])
-
+    
     function handlePostClick(id){
         navigate(`/post-detail/${id}`)
     }
 
-    const handleSearchEnter = () => {
-        setFilterData(prevFilterData => ("?search="+searchText))
-    }
-
-    const handleChange = (e) => {
-        setSearchText(e.target.value)
-    }
-    
     const postObjects = postData.map(postItem => (<PostPill
                                                     postClick={() => handlePostClick(postItem.id)}
                                                     key = {postItem.id}
@@ -42,17 +34,7 @@ function Posts(){
                                                 />))
     return(
         <>
-        <div className="search">
-            <input onKeyDown={(e) => {if(e.key === "Enter"){handleSearchEnter()}}} 
-                    onChange={handleChange} name="search-bar" type="text" />
-
-            <div className="filter-dropdown">
-                <button>
-                    Filters
-                    <img src={filterIcon} alt="" />
-                </button>
-            </div>
-        </div>
+        <SearchAndSort onFilterChange={setFilterData} />
         <div className="post-wrapper">
             {postObjects}
         </div>
