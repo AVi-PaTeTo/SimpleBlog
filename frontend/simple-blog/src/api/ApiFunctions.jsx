@@ -14,6 +14,11 @@ export const deletePost = async(postId) => {
     return response
 }
 
+export const updatePost = async(postId, postData) => {
+    const response = await API.put(`/posts/${postId}/`,postData)
+    return response
+}
+
 export const getPostById = async(postId) => {
     const response = await API.get(`/posts/${postId}`)
     return response.data

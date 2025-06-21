@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { createPost } from "../api/ApiFunctions"
-import DeletePopUp from "../components/DeletePopUp"
 
 export default function CreatePost(){
     const [post, setPost] = useState({  

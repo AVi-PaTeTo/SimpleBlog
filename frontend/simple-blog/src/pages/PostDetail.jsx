@@ -52,6 +52,10 @@ export default function PostDetail() {
               const response = await createComment(comment);
       };
   
+  const handleEditButton = () =>{
+    navigate(`/edit/${id}`)
+  }
+  
   const handleDeleteButton = () =>{
     setPopupVisible(true)
   } 
@@ -90,9 +94,7 @@ export default function PostDetail() {
                                                         content = {commentItem.content}
                                                     />))
   
-    console.log(comments.length)
-    console.log(post.comment_count)
-    console.log(post)
+                                                    console.log(commentObjects)
   return (
     <>
       {popupVisible && (<DeletePopUp 
@@ -105,7 +107,7 @@ export default function PostDetail() {
               <div className='post-header'>
                 <h2>{post.title}</h2>
                 {isAuthor &&(<div className='post-customize'>
-                  <button id='edit'><img  src={editIcon} alt="edit icon" /></button>
+                  <button onClick={handleEditButton} id='edit'><img  src={editIcon} alt="edit icon" /></button>
                   <button onClick={handleDeleteButton} id='delete'><img  src={deleteIcon} alt="delete icon" /></button>
                 </div>)}
               </div>

@@ -13,16 +13,8 @@ class CommentSerializer(serializers.ModelSerializer):
     post = serializers.PrimaryKeyRelatedField(queryset=Post.objects.all(), write_only=True)
     class Meta:
         model = Comment
-        fields = ['post', 'post_title',  'username', 'content',  'created_at']
+        fields = ['id', 'post', 'post_title',  'username', 'content',  'created_at']
 
-# class PaginatedCommentSerializer(serializers.Serializer):
-#     comments = CommentSerializer(many=True)
-#     count = serializers.IntegerField()
-#     next = serializers.CharField(allow_null=True)
-#     prev = serializers.CharField(allow_null=True)
-
-#     def get_comments(self, obj):
-#         queryset = obj.post
 
 class PostSerializer(serializers.ModelSerializer):
     username = serializers.ReadOnlyField(source="author.username")

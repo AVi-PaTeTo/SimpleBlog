@@ -32,6 +32,8 @@ function Posts(){
                                                     comment_count={postItem.comment_count}
                                                     public = {postItem.is_public}
                                                 />))
+
+
     return(
         <>
         <SearchAndSort onFilterChange={setFilterData} />
