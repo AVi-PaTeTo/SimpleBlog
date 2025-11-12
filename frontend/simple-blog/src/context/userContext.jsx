@@ -12,33 +12,33 @@ export const UserProvider = ({children}) => {
 
     useEffect(() => {
         const initializeUser = () => {
-        const token = localStorage.getItem('access_token');
-      if (token) {
-            try{
-                const decodedToken = jwtDecode(token);
-                if (decodedToken.exp * 1000 < Date.now()) {
-                    console.log('Token expired');
-                    setCurrentUser(null);
-                    localStorage.removeItem('access_token');
-                    localStorage.removeItem('refresh_token');
-                    localStorage.removeItem('current_user');
-                return;
+            const token = localStorage.getItem('access_token');
+            if (token) {
+                    try{
+                        const decodedToken = jwtDecode(token);
+                        if (decodedToken.exp * 1000 < Date.now()) {
+                            console.log('Token expired');
+                            setCurrentUser(null);
+                            localStorage.removeItem('access_token');
+                            localStorage.removeItem('refresh_token');
+                            localStorage.removeItem('current_user');
+                        return;
+                            }
+                            setCurrentUser({
+                                id: decodedToken.user_id
+                                            });
+                        } catch (err) {
+                            console.error('Invalid Token:', err);
+                            setCurrentUser(null);
+                            localStorage.removeItem('access_token');
+                            localStorage.removeItem('refresh_token');
+                            localStorage.removeItem('current_user');
+                        }       
                     }
-                    setCurrentUser({
-                        id: decodedToken.user_id
-                                    });
-                } catch (err) {
-                    console.error('Invalid Token:', err);
-                    setCurrentUser(null);
-                    localStorage.removeItem('access_token');
-                    localStorage.removeItem('refresh_token');
-                    localStorage.removeItem('current_user');
-                }       
-            }
-        };
+                };
 
-        initializeUser();
-    }, []);
+            initializeUser();
+        }, []);
 
 
     useEffect(() => {

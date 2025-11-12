@@ -43,6 +43,7 @@ export default function EditPost(props){
     }
 
     const handleSave = async (e) => {
+            e.preventDefault()
             const response = await updatePost(id, post);
             navigate(`/post-detail/${id}`)
     };

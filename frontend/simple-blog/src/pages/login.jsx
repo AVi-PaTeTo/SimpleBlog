@@ -89,30 +89,3 @@ const Login = () => {
 export default Login;
 
 
-{/* <img src={login_side} alt="" />
-      <form onSubmit={handleLogin}>
-        <h2>Welcome Back!</h2>
-        {error && <p className="error">{error}</p>}
-
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </button>
-      </form> */}

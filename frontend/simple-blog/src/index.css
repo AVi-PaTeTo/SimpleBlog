@@ -336,6 +336,13 @@ button{
   width: 50%
 }
 
+#ascending{
+  border-radius: 20px 0 0 20px;
+}
+#descending{
+  border-radius: 0 20px 20px 0;
+}
+
 .sort-order-img{
   pointer-events: none;
   height: 80%;
@@ -344,7 +351,7 @@ button{
 .apply{
   padding: 10px;
   margin-top: 5px;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: #836FFF;
   font-weight: 600;
   font-size: 1rem;
