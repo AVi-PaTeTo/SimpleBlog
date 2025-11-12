@@ -40,3 +40,8 @@ class PostSerializer(serializers.ModelSerializer):
         paginated_comments = paginator.get_page(page)
 
         return CommentSerializer(paginated_comments, many=True).data
+    
+
+class CreateUserSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)

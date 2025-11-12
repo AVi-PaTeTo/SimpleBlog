@@ -23,35 +23,97 @@ body {
 
 .login-tray{
   background-color: white;
-  max-width: 640px;
-  padding: 20px;
-  margin: auto;
+  max-width: full;
+  height: 100%;
+  /* padding:; */
+  /* margin: auto; */
   display: flex;
 }
 
 .image-container{
+  display: flex;
   width: 50%;
-  height: 50%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .image-container > img{
+
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .form-container{
   width: 50%;
-  height: 50%;
+  height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0px 20px;
+  /* justify-content: center; */
+  padding: 100px 0px;
+  overflow: hidden;
+
+}
+
+.signin{
+  /* width: 100%; */
+  flex-shrink: 0;
+  margin: 0px auto;
+}
+
+.signup{
+  /* width: 100%; */
+  flex-shrink: 0;
+    margin: 0px auto;
+}
+
+.shift{
+  transform: translateX(0%);
+}
+
+.unshift{
+  transform: translateX(-100%);
+}
+
+.form-container h2{
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.form-container .login-inputs{
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container .login-inputs label{
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.form-container .login-inputs input{
+  padding: 4px 2px 2px;
+  border: none;
+  border-bottom: 2px solid #6b55ff;
+  
+}
+
+.form-container .login-inputs input:focus{
+  outline:none
+}
+
+.form-container button{
+  padding: 6px;
+  background: #6b55ff;
+  font-weight: 700;
+  color: black;
 }
 
 form{
+  padding: 0px 80px;
   display: flex;
   flex-direction: column;
-  max-width: 100%;
+  width: 100%;
+  gap: 14px;
+    transition: transform 0.4s ease-in-out;
 }
 
 button{
@@ -84,7 +146,7 @@ button{
   height: 70vh;
   background-color: #826fff31;
   padding: 20px;
-  padding-bottom: 0;
+  /* padding-bottom: 0; */
   display: flex;
   justify-content: center; 
   ;
@@ -365,7 +427,13 @@ button > img{
 .create{
   /* background-color: #e2deff; */
   /* display: flex; */
-  height: 100vh;
+  height: 100%;
+}
+
+.create form{
+  display: flex;
+  width: 100%;
+  min-height: 100%;
 }
 
 .create > form > #title{
@@ -377,6 +445,7 @@ button > img{
   margin-bottom: 20px;
   font-size: 1.2rem;
   color: white;
+  width: 100%;
 }
 
 .create > form > #content{
@@ -425,11 +494,41 @@ button > img{
   background-color: #836FFF;
 }
 
+.error{
+  color: #e20e06;
+  font-weight: 600;
+  text-align: center;
+}
+
+.sign-up-toggle{
+  color:#6b55ff;
+  text-align: center;
+  margin-top: auto;
+  font-weight: 800;
+  transition: font-size 0.2s ease-in-out;
+}
+
+.sign-up-toggle:hover{
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+@keyframes grow {
+  0%{
+    font-size: 1rem;
+  }
+  100%{
+    font-size: 2.1rem;
+  }
+}
+
+
 .detail{
   background-color: #e2deff;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   overflow: auto;
 }
 
@@ -446,6 +545,10 @@ button > img{
   font-size: 2rem;
 }
 
+.comment-section{
+  width: 100%;
+}
+
 .comment-section > .load-comment{
   min-width: 5rem;
   padding: 0.5rem;
@@ -455,10 +558,15 @@ button > img{
   border-radius: 1rem;
 }
 
+.comment-box{
+  padding: 0.5rem 1rem;
+}
+
 .comment-box form{
   display: flex;
+  width: 100%;
   gap: 1rem;
-  margin: 0.5rem 1rem;
+  /* margin: 0.5rem 1rem; */
 }
 
 .comment-box input{

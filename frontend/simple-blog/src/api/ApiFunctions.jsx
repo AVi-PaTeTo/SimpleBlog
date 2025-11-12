@@ -7,6 +7,7 @@ export const getPosts = async(filterData) => {
 
 export const createPost = async(postData) => {
     const response = await API.post("/posts/", postData)
+    return response
 }
 
 export const deletePost = async(postId) => {
@@ -31,9 +32,22 @@ export const getUserPosts = async(filterData) => {
 
 export const createComment = async(commentData) => {
     const response = await API.post("/comments/", commentData)
+    return response
 }
 
 export const loadMoreComment = async(postId, pageNumber) => {
     const response = await API.get(`/posts/${postId}/?comment_page=${pageNumber}`)
     return response.data.comments
 }
+
+
+export const login = async(loginCred) => {
+    const response = await API.post("/token/", loginCred)
+    return response
+}
+
+export const signup = async(signupData) => {
+    const response = await API.post("/register/", signupData)
+    return response
+}
+

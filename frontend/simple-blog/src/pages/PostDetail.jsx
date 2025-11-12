@@ -42,14 +42,16 @@ export default function PostDetail() {
     fetchSinglePost();
   }, [id]);
 
+  console.log(comments)
   const handleChange = (e) => {
           setCommentText(prevCommentText => e.target.value)
       }
   
   const handleSave = async (event) => {
-              // event.preventDefault();
+              event.preventDefault();
               const comment = {post: id, content: commentText};
               const response = await createComment(comment);
+              setComments(prev => [...prev, response.data])
       };
   
   const handleEditButton = () =>{
@@ -94,7 +96,7 @@ export default function PostDetail() {
                                                         content = {commentItem.content}
                                                     />))
   
-                                                    console.log(commentObjects)
+                                                    // console.log(commentObjects)
   return (
     <>
       {popupVisible && (<DeletePopUp 

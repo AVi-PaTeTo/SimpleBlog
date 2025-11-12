@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
 import { createPost } from "../api/ApiFunctions"
+import { useNavigate } from "react-router-dom"
 
 export default function CreatePost(){
+    const navigate = useNavigate()
     const [post, setPost] = useState({  
                                         title: "",
                                         content: ""
@@ -12,9 +14,12 @@ export default function CreatePost(){
     }
 
     const handleSave = async (e) => {
+            e.preventDefault()
             const isPublic = e.target.value === "true";
             const updatedPost = { ...post, is_public: isPublic };
             const response = await createPost(updatedPost);
+            const id = response.data.id
+            navigate(`/post-detail/${id}`)
     };
 
     return(

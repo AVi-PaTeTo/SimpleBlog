@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, generics, exceptions
+from django.contrib.auth.models import User
+from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
@@ -9,7 +11,11 @@ from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from .models import Post,Comment
-from .serializers import PostSerializer,CommentSerializer
+from .serializers import PostSerializer,CommentSerializer, CreateUserSerializer
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+
 
 from .pagination import CommentPagination
 
@@ -61,14 +67,6 @@ class PostAPIView(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-# class UserPostDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     """Retrieve, update, or delete a private post owned by the authenticated user."""
-#     serializer_class = PostSerializer
-#     permission_classes = [IsAuthenticated]
-
-#     def get_queryset(self):
-#         return Post.objects.select_related("author").prefetch_related("post_comments__author").filter(author=self.request.author).annotate(comment_count=Count('post_comments'))
-    
 class CommentAPIView(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
@@ -76,3 +74,19 @@ class CommentAPIView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+
+@extend_schema(
+    request=CreateUserSerializer,
+    responses={201: CreateUserSerializer},  # or whatever serializer you use for response
+    description="Register a new user."
+)
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def register_user(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    user = User.objects.create_user(password=password, username=username)
+
+    return Response({'message': 'User created', 'user': user.id}, status=status.HTTP_201_CREATED)
