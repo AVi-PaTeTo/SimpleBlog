@@ -12,7 +12,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [registering, setRegistering] = useState(false)
-  const [signupForm, setSignupForm] = useState({username:"", password:"", conf_password:""})
+  const [signupForm, setSignupForm] = useState({s_username:"", s_password:"", s_conf_password:""})
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -20,10 +20,10 @@ const Login = () => {
 
 
   // dumb but simple form validation
-  const disableSignUp = signupForm.username === ""      || 
-                        signupForm.username.length < 6  || 
-                        signupForm.password === ""      || 
-                        signupForm.conf_password != signupForm.password
+  const disableSignUp = signupForm.s_username === ""      || 
+                        signupForm.s_username.length < 6  || 
+                        signupForm.s_password === ""      || 
+                        signupForm.s_conf_password != signupForm.s_password
 
   async function handleSignup(e){
     e.preventDefault()
@@ -88,6 +88,7 @@ const Login = () => {
               <label htmlFor="username">Username</label>
               <input
                 type="text"
+                id="username"
                 name="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -99,6 +100,7 @@ const Login = () => {
               <label htmlFor="password">Password</label>
               <input
                 type="password"
+                id="password"
                 name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -119,10 +121,11 @@ const Login = () => {
             {error && <p className="error">{error}</p>}
 
             <div className="login-inputs">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="s_username">Username</label>
               <input
                 type="text"
-                name="username"
+                id="s_username"
+                name="s_username"
                 value={signupForm.username}
                 onChange={(e) => setSignupForm(prev => ({...prev, [e.target.name]:e.target.value}))}
                 required
@@ -130,10 +133,11 @@ const Login = () => {
             </div>
 
             <div className="login-inputs">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="s_password">Password</label>
               <input
                 type="password"
-                name="password"
+                id="s_password"
+                name="s_password"
                 value={signupForm.password}
                 onChange={(e) => setSignupForm(prev => ({...prev, [e.target.name]:e.target.value}))}
                 required
@@ -141,10 +145,11 @@ const Login = () => {
             </div>
 
             <div className="login-inputs">
-              <label htmlFor="conf_password">Confirm Password</label>
+              <label htmlFor="s_conf_password">Confirm Password</label>
               <input
                 type="password"
-                name="conf_password"
+                id="s_conf_password"
+                name="s_conf_password"
                 value={signupForm.conf_password}
                 onChange={(e) => setSignupForm(prev => ({...prev, [e.target.name]:e.target.value}))}
                 required
@@ -155,7 +160,7 @@ const Login = () => {
                     // onClick={handleSignup}
                     disabled={disableSignUp}
                     style={disableSignUp? 
-                                          {background: "#d1d1d1", cursor: "default"}:
+                                          {background: "#d1d1d1", cursor: "default", color: "black"}:
                                           {}}>
               Sign Up
             </button>
@@ -166,7 +171,7 @@ const Login = () => {
                 <p 
                   onClick={(e) => {e.preventDefault()
                     setRegistering(prev => !prev)}}
-                  style={{cursor: "pointer", color:"#6b55ff", fontWeight: "800"}}>
+                  style={{cursor: "pointer", color:"#3a31d8", fontWeight: "800"}}>
                   Sign In
                 </p>
             </div>

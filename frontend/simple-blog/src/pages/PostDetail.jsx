@@ -23,7 +23,7 @@ export default function PostDetail() {
   const { currentUser } = useUser();
   const [popupVisible, setPopupVisible] = useState(false)
 
-  const isAuthor = currentUser.id === post.user_id
+  const isAuthor =  currentUser?.id === post.user_id
   
   useEffect(() => {
     const fetchSinglePost = async () => {
@@ -42,13 +42,16 @@ export default function PostDetail() {
     fetchSinglePost();
   }, [id]);
 
-  console.log(comments)
   const handleChange = (e) => {
           setCommentText(prevCommentText => e.target.value)
       }
   
   const handleSave = async (event) => {
               event.preventDefault();
+              if(!currentUser){
+                alert("PLease sign in.")
+                return
+              }
               const comment = {post: id, content: commentText};
               const response = await createComment(comment);
               setComments(prev => [...prev, response.data])

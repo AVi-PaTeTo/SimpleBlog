@@ -29,7 +29,7 @@ export default function CreatePost(){
 
                 <input onChange={handleChange} id="title" name="title" type="text" placeholder="Title" />
 
-                <textarea onChange={handleChange} id="content" name="content" rows={14} placeholder="Content"></textarea>
+                <textarea onChange={handleChange} id="content" name="content" placeholder="Content"></textarea>
 
                 <div className="button-container">
                     <button onClick={handleSave} value={false}>Save as Draft</button>

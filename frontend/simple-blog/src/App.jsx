@@ -29,10 +29,14 @@ function App() {
         <Header />
         <div className='tray'>
           <div className='actions'>
-            <button onClick={() => navigate('/create')}>Create</button>
-            <button onClick={() => navigate('/')}>Browse</button>
-            <button onClick={() => navigate('/my-posts')}>My Posts</button>
-            <button onClick={handleLoginButton}>{access===null?"Log In":"Log Out"}</button>
+            <div className='button-set'>
+              <button onClick={() => navigate('/create')}>Create</button>
+              <button onClick={() => navigate('/')}>Browse</button>
+            </div>
+            <div className='button-set'>
+              <button onClick={() => navigate('/my-posts')}>My Posts</button>
+              <button onClick={handleLoginButton}>{access===null?"Log In":"Log Out"}</button>
+            </div>
           </div>
           <div className='content-wrapper'>
             <Routes>
